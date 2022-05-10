@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:two_it_api/api/delete_all_events_for_user.dart';
 import 'package:two_it_api/api/get_all_events_from_user.dart';
 import 'package:two_it_api/api/login_user.dart';
+import 'package:two_it_api/api/save_all_user_to_json.dart';
 import 'package:two_it_api/two_it_api.dart';
 import 'package:two_it_api/xl_to_json/xl_to_dart.dart';
 import 'package:http/http.dart' as http;
@@ -17,40 +18,65 @@ shaiful.iotait@gmail.com
 shawonhaque16@gmail.com
 shawon11@gmail.com
 sh@gmail.com
-
-
+iota@iota.con
 */
+
+List<String> emailList = <String>[
+  "shawon1fb@gmail.com",
+  "cokplay0176@gmail.com",
+  "shahanul.iotait@gmail.com",
+  "joytish.iotait@gmail.com",
+  "shaiful.iotait@gmail.com",
+// "shawonhaque16@gmail.com",
+  "shawon11@gmail.com",
+  "sh@gmail.com",
+  "iota@iota.con",
+];
+
 void main() async {
   // xlTODart();
   try {
-
-    deleteAllEvent(email: 'shawon11@gmail.com');
+    // await saveAllUserToJson(emailList);
+    // deleteAllEvent(email: 'shawon11@gmail.com');
     // getAllCreatedEvent(
     //     token: '4xRnmjZTX5P7qw3oQUyRPLtOQTrWvEbqeyqo4wHx', page: 1);
-    // loginUserByEmail(email: 'shaiful.iotait@gmail.com');
+
+    // emailList.forEach((element) async {
+    //   User user = await loginUserByEmail(email: element);
+    // });
+    // User user = await loginUserByEmail(email: 'cokplay0176@gmail.com');
     // allUsers();
     // String userToken = "819|4XK2RfONWr1JdK3OJdkcd4376jzN1bNMViUsVf4O";
     // int userId = await getProfileDetails(userToken);
-    // createEventWithUsers(userToken: userToken, userId: userId.toString());
+
+    User user = User(
+      email: 'cokplay0176@gmail.com',
+      token: '1083|i8fKeOj4yJ7F0xQQl41pjG5iVXxY59jjGvYxb2vb',
+      id: 55,
+    );
+
+    createEventWithUsers(
+      userToken: user.token,
+      userId: user.id.toString(),
+    );
   } catch (e, t) {
     print(e);
     print(t);
   }
 }
 
-List<String> validTokens = <String>[
-  "795|3B0f2yYj5gIablG2YfzvvfPkIz2e4kjoXo4O3RCp",
-  "796|EZIfpxuPZ11bHrZWITs3uINd3esbSFgHsehFu0Ys",
-  "797|nIA2llKrAfi51xDms5hyd99ysHe3Ydg1Vm5XY4xV",
-  '798|uTyu3UjGD6Ranps3IIRWnHvJLOkSVeFHHybJoVpY',
-  "818|4xRnmjZTX5P7qw3oQUyRPLtOQTrWvEbqeyqo4wHx",
-  "811|aINCDVBboI2GgzAFB87PyCyDtVvvRFdKcLoDvhrk",
-];
+List<String> validTokens = <String>[];
 
 void allUsers() async {
-  for (String token in validTokens) {
-    await getProfileDetails(token);
+  List<User> users = await userListFromJson();
+
+  for (var u in users) {
+    validTokens.add(u.token);
   }
+
+  // for (String token in validTokens) {
+  //   await getProfileDetails(token);
+  // }
 }
 
 void createEventWithUsers({
@@ -58,9 +84,10 @@ void createEventWithUsers({
   required String userId,
 }) async {
   try {
+    allUsers();
     List<String> events = await twoItEventCreate(
       userToken: userToken,
-      numberOfEvent: 1,
+      numberOfEvent: 6,
     );
 
     for (String event in events) {

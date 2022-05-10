@@ -9,12 +9,20 @@ import 'dto/create_event_dto.dart';
 Future<List<String>> twoItEventCreate(
     {required String userToken, required int numberOfEvent}) async {
   try {
-    List<File> imageFileList = <File>[];
+    List<File> imageFileList = <File>[
+
+
+    ];
 
     for (int i = 0; i < 1; i++) {
       File f = File(imgList[i % imgList.length]);
-      imageFileList.add(f);
+      if(f.existsSync()){
+        imageFileList.add(f);
+      }
+
     }
+
+    print('image list len :=> ${imageFileList.length}');
     final Faker faker = Faker.instance;
 
 
@@ -32,7 +40,7 @@ Future<List<String>> twoItEventCreate(
         longitude: '90.35705600000001',
         //'90.412521',
         startDate: '2022-02-15 11:41:00',
-        endDate: '2023-02-15 11:41:00',
+        endDate: '2024-02-15 11:41:00',
         description: faker.lorem.sentence(),
         //'description',
         ageRange: '18-35',

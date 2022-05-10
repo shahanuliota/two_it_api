@@ -54,7 +54,7 @@ class CreateEventDto {
     json['available_place'] = availablePlace;
     json['gender'] = gender;
     json['status'] = status;
-    json['category_id'] = categoryId;
+    json['categories'] = categoryId;
     json['is_handshake'] = isHandshake;
     json['tags'] = tags
         .map((e) => e.toString())

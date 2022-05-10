@@ -19,6 +19,7 @@ Future<String> createEvent({required CreateEventDto dto, token}) async {
     http.StreamedResponse response = await request.send();
 
     print("status :=> ${response.statusCode}");
+
     if (response.statusCode == 200) {
       String js = await response.stream.bytesToString();
       Map<String, dynamic> j = json.decode(js);
